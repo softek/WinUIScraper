@@ -8,9 +8,9 @@ Screen Scraping
 
 Use a declarative approach to screen scraping with WinUIScraper.
 
-For your convenience, [WinUIScraper.cs](blob/master/WinUIScraper.cs) contains the entire library as a single C# file.  Of course if you'd rather use the Visual Studio Solution, that's found [here](tree/master/src).
+For your convenience, [WinUIScraper.cs](WinUIScraper/blob/master/WinUIScraper.cs) contains the entire library as a single C# file.  Of course if you'd rather use the Visual Studio Solution, that's found [here](tree/master/src).
 
-Here's a [quick example](blob/master/src/WinUIScraper.UnitTests/NotepadTests.cs) of extracting data from Notepad.
+Here's a [quick example](WinUIScraper/blob/master/src/WinUIScraper.UnitTests/NotepadTests.cs) of extracting data from Notepad.
 
     [TestClass]
     public class NotepadTests
