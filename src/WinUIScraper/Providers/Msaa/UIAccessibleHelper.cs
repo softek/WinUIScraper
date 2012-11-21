@@ -73,7 +73,7 @@
          {
             return element.accValue;
          }
-         catch (Exception e)
+         catch (Exception)
          {
             try
             {
@@ -93,7 +93,7 @@
          {
             return element.accDescription;
          }
-         catch (Exception e)
+         catch (Exception)
          {
             try
             {
