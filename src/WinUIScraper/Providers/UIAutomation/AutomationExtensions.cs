@@ -50,6 +50,16 @@
             .Cast<AutomationElement>();
       }
 
+      public static AutomationElement FindFirstAncestorByControlType(this AutomationElement ae, ControlType className)
+      {
+         var ancestor = TreeWalker.ControlViewWalker.GetParent(ae);
+         for (; ancestor != null && className != ancestor.GetCurrentPropertyValue(AutomationElement.ControlTypeProperty);
+            ancestor = TreeWalker.ControlViewWalker.GetParent(ancestor))
+         {
+         }
+         return ancestor;
+      }
+
       public static void ExecuteWithUpdatedCache(this AutomationElement ae, CacheRequest cr, Action<AutomationElement> action)
       {
          using (cr.Activate())
@@ -59,6 +69,11 @@
       public static string GetName(this AutomationElement ae)
       {
          return (string)ae.GetCurrentPropertyValue(AutomationElement.NameProperty);
+      }
+
+      public static string GetClassName(this AutomationElement ae)
+      {
+         return (string)ae.GetCurrentPropertyValue(AutomationElement.ClassNameProperty);
       }
 
       public static string GetStringValue(this AutomationElement ae)
