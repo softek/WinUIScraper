@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinUIScraper", "WinUIScrape
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinUIScraper.UnitTests", "WinUIScraper.UnitTests\WinUIScraper.UnitTests.csproj", "{CE319417-1ED1-4CA2-A53F-C6C988FE7AD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinUIScraper.Samples", "WinUIScraper.Samples\WinUIScraper.Samples.csproj", "{67241251-3A31-4424-A610-759084BA6007}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{CE319417-1ED1-4CA2-A53F-C6C988FE7AD0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{CE319417-1ED1-4CA2-A53F-C6C988FE7AD0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CE319417-1ED1-4CA2-A53F-C6C988FE7AD0}.Release|x86.ActiveCfg = Release|Any CPU
+		{67241251-3A31-4424-A610-759084BA6007}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{67241251-3A31-4424-A610-759084BA6007}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{67241251-3A31-4424-A610-759084BA6007}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{67241251-3A31-4424-A610-759084BA6007}.Debug|x86.ActiveCfg = Debug|x86
+		{67241251-3A31-4424-A610-759084BA6007}.Debug|x86.Build.0 = Debug|x86
+		{67241251-3A31-4424-A610-759084BA6007}.Release|Any CPU.ActiveCfg = Release|x86
+		{67241251-3A31-4424-A610-759084BA6007}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{67241251-3A31-4424-A610-759084BA6007}.Release|Mixed Platforms.Build.0 = Release|x86
+		{67241251-3A31-4424-A610-759084BA6007}.Release|x86.ActiveCfg = Release|x86
+		{67241251-3A31-4424-A610-759084BA6007}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

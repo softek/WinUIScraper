@@ -1,7 +1,8 @@
 WinUIScraper
 ============
 
-Harvest data from other windows applications
+ * Harvest data from other windows applications ([example](#current-document-in-visual-studio))
+ * Declaratively test that your user interface displays the right information ([example](#notepad-example)).
 
 Screen Scraping
 ------------------------------------
@@ -10,7 +11,84 @@ Use a declarative approach to screen scraping with WinUIScraper.
 
 For your convenience, [WinUIScraper.cs](WinUIScraper/blob/master/WinUIScraper.cs) contains the entire library as a single C# file.  Of course if you'd rather use the Visual Studio Solution, that's found [here](tree/master/src).
 
-Here's a [quick example](WinUIScraper/blob/master/src/WinUIScraper.UnitTests/NotepadTests.cs) of extracting data from Notepad.
+Current Document in Visual Studio
+------------------------------------
+ The [Visual Studio example](WinUIScraper/blob/master/src/WinUIScraper.Samples/CurrentVisualStudioDocument.cs) shows how to find the current document's filename by getting the selected document tab and get the name of that tab.
+
+      public static class VisualStudioSample
+      {
+         public static string GetCurrentDocument(Process visualStudioProcess)
+         {
+            // Declare what you are looking for
+            Node uiElementsToFind = BuildVisualStudio2010Tree();
+            // Pick the AutomationElement to get data from
+            AutomationElement mainWindowElement = GetMainWindowElement(visualStudioProcess);
+            // Get values of matched elements
+            var dictionaryOfFoundValues = new HierarchicalValueProvider(mainWindowElement).GetValues(uiElementsToFind);
+            // Read the flattened tree
+            List<string> files = dictionaryOfFoundValues["file"];
+            return files.FirstOrDefault();
+         }
+
+         static Node BuildVisualStudio2010Tree()
+         {
+            // AnonymousNodes have no name or values, but they are great as landmarks.
+            // ValueNodes represent the values you are looking for.
+            return
+               new AnonymousNode(DescendentDocumentGroups()) // Find DocumentGroup
+                  {                                          // Foreach DocumentGroup
+                     new AnonymousNode(SelectedChildren())   //   Find selected document
+                     {                                       //   Foreach document
+                        new ValueNode("file", GetName),      //     Save name as "file"
+                     }
+                  };
+         }
+
+         static AutomationElement GetMainWindowElement(Process process)
+         {
+            return AutomationElement.FromHandle(process.MainWindowHandle);
+         }
+
+         static Func<AutomationElement, IEnumerable<AutomationElement>> DescendentDocumentGroups()
+         {
+            return element => element.FindDescendantsByControlType(ControlType.Tab).Where(e => "DocumentGroup" == e.GetClassName());
+         }
+
+         static Func<AutomationElement, IEnumerable<AutomationElement>> SelectedChildren()
+         {
+            return element => element.FindChildrenBy(SelectionItemPattern.IsSelectedProperty, true);
+         }
+
+         static string GetName(AutomationElement element)
+         {
+            return element.GetName();
+         }
+      }
+
+      // This HierarchicalValueProvider using UIAutomation.  Keys are strings, and values are strings.
+      // But of course you can use different types of library, keys, or values.
+      class HierarchicalValueProvider : HierarchicalValueProvider<AutomationElement, string, string>
+      {
+         public HierarchicalValueProvider(AutomationElement element)
+            : base(element)
+         {
+         }
+      }
+
+      // These are trivial alias types to be more descriptive.
+      class Node : KeyedTreeNode<string, IElementsProvider<AutomationElement, string>>
+      {...}
+      class ValueNode : Node
+      {...}
+      class AnonymousNode : Node
+      {...}
+      class AutomationElementsProvider : DelegatedElementsProvider<AutomationElement, string>
+      {...}
+
+
+Notepad Example
+------------------------------------
+ The [notepad example](WinUIScraper/blob/master/src/WinUIScraper.UnitTests/NotepadTests.cs) shows a MSTest unit test verifying that expected menus exist in Notepad.
 
     [TestClass]
     public class NotepadTests
